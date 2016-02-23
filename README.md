@@ -1,5 +1,8 @@
 # SpringBootActivitiCalculator
+
 Example implementation of simple calculator using Spring Boot and Activiti
+
+![Image of process](src/main/resources/processes/calc.png)
 
 WARNING!!! Needs polishing, PROOF OF CONCEPT IS WORKING!
 
@@ -17,6 +20,8 @@ WARNING!!! Needs polishing, PROOF OF CONCEPT IS WORKING!
 ## UI implementation
 
 UI is thymeleaf based.
+
 Forms are completelty hand-written, without any dependency on technology used.
+
 Current task complete model is POST with process.<var> = value params.
 
