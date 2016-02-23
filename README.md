@@ -1,7 +1,9 @@
 # SpringBootActivitiCalculator
 Example implementation of simple calculator using Spring Boot and Activiti
 
-## Functionality
+THIS IS WORK IN PROGRESSS! NOT COMPLETE!
+
+## Future functionality
 
   * Display processes
   * Start process
