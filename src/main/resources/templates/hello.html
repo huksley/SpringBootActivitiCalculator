@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Hello World!</title>
-    </head>
-    <body>
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </body>
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head th:replace="etc/elements :: head"/>
+<body>
+    <div id="wrapper">
+		<nav th:replace="etc/navbar :: navbar"></nav>
+		<div th:replace="etc/sidebar :: sidebar"/>
+	
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Greeter!</h1>
+					
+					<h3 th:inline="text">Hello <span th:text="${#httpServletRequest.remoteUser}">username</span>!</h3>
+			        
+			        <h4>Current available tasks</h4>
+			        <li th:each="task : ${@taskBean.tasks}">
+			        	<a th:href="${@workflowService.processDefinitionName(task.processInstanceId) + '/' + task.formKey + '?taskId=' + task.id}">
+				        	<span th:text="${task.name}"/>
+			        	</a>
+			        </li>
+			        <form th:action="@{/process}" method="post">
+			            <input type="submit" value="Start process"/>
+			        </form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:replace="etc/elements :: scripts"/>
+</body>
 </html>

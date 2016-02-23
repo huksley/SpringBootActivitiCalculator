@@ -13,6 +13,8 @@ public class WebRouteConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+    	registry.addViewController("/etc/*");
+    	registry.addViewController("/calc/*");
         registry.addViewController("/home").setViewName("home");
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/hello").setViewName("hello");
@@ -23,7 +25,7 @@ public class WebRouteConfig extends WebMvcConfigurerAdapter {
 		"classpath:/META-INF/resources/", 
 		"classpath:/resources/",
 		"classpath:/static/", 
-		"classpath:/public/"
+		"classpath:/public/",
 	};
     
 	@Override

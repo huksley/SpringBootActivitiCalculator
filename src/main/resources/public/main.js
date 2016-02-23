@@ -47,3 +47,11 @@ var paths = [
 "/trace",
 "/whoami"
 ]
+
+if (!window.ui) {
+	window.ui = {};
+}
+
+ui.logout = function () {
+	document.forms.logoutForm.submit();
+}

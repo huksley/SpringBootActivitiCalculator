@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragment="head">
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title th:text="${title}?:'No title'">Example title</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="https://gitcdn.xyz/repo/BlackrockDigital/startbootstrap-sb-admin-2/gh-pages/dist/css/timeline.css" rel="stylesheet"/>
+	<link href="https://gitcdn.xyz/repo/BlackrockDigital/startbootstrap-sb-admin-2/gh-pages/dist/css/sb-admin-2.css" rel="stylesheet"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.4.0/metisMenu.css" rel="stylesheet"/>
+	<link href="/main.css" rel="stylesheet"/>
+</head>
+<body>
+	<div id="wrapper">
+		<nav th:replace="etc/navbar :: navbar"></nav>
+		<div th:replace="etc/sidebar :: sidebar"/>
+		
+		<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Page elements</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    Declares <b>head</b>(title) and <b>scripts</b> fragments.
+                </div>
+            </div>
+            
+            <div class="row" th:fragment="etctoc">
+                <div class="col-lg-12">
+                    <h3>All fragments</h3>
+                    <li><a href="/etc/elements">Common elements</a></li>
+                    <li><a href="/etc/sidebar">Sidebar menu</a></li>
+                    <li><a href="/etc/navbar">Top navigation bar</a></li>
+                    
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+		</div>
+	</div>
+	
+	<div th:fragment="scripts">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.4.0/metisMenu.js"></script>
+		<script src="https://gitcdn.xyz/repo/BlackrockDigital/startbootstrap-sb-admin-2/gh-pages/dist/js/sb-admin-2.js"></script>
+		<script src="/main.js"></script>
+	</div>
+</body>
+</html>

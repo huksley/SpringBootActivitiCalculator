@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head th:replace="etc/elements :: head"/>
+<body>
+    <div id="wrapper">
+		<nav th:replace="etc/navbar :: navbar"></nav>
+		<div th:replace="etc/sidebar :: sidebar"/>
+	
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Enter values</h1>
+					
+					<span th:if="${param.taskId}" th:text="${'TaskId: ' + param.taskId[0]}"/>
+					
+					<p/>
+					<span th:if="${@taskBean.var('calc')}" th:with="calc=${@taskBean.var('calc')}">
+						<form th:if="${param.taskId}" th:action="${'/task/complete/' + param.taskId[0]}" method="post">
+					
+							A: <input type="text" name="process.calc.a" th:value="${calc.a}"/><br/>
+							B: <input type="text" name="process.calc.b" th:value="${calc.b}"/><br/>
+							<select name="process.calc.operation" th:value="${calc.operation}">
+								<option value="">Select one</option>
+								<option value="+" th:selected="${calc.operation == '+'}">+</option>
+								<option value="-" th:selected="${calc.operation == '-'}">-</option>
+								<option value="*" th:selected="${calc.operation == '*'}">*</option>
+								<option value="/" th:selected="${calc.operation == '/'}">/</option>
+							</select>
+							
+				            <div><input type="submit" value="Enter prompts"/></div>
+				        </form>
+						
+					</span>
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:replace="etc/elements :: scripts"/>
+</body>
+</html>
