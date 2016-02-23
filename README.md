@@ -1,24 +1,22 @@
 # SpringBootActivitiCalculator
 Example implementation of simple calculator using Spring Boot and Activiti
 
-THIS IS WORK IN PROGRESSS! NOT COMPLETE!
+WARNING!!! Needs polishing, PROOF OF CONCEPT IS WORKING!
 
-## Future functionality
+## Working functionality
 
-  * Display processes
-  * Start process
-  * Display list of tasks
-  * Execute task
+  * Start calc process
+  * Display list of tasks assigned/candidates
+  * Open task form
   * Fill form
-  * Complete form
-  * List process instances
+  * Send form
+  * Execute service task
+  * Handle catch errors
+  * Complete process
 
-## JSON API
+## UI implementation
 
-## Form implementation
-
-Using Angular JS.
-Forms are custom (not dynamic). Variables available to form by default - all or 
-by formKey=form?vars=xxx specification.
-
+UI is thymeleaf based.
+Forms are completelty hand-written, without any dependency on technology used.
+Current task complete model is POST with process.<var> = value params.
 
