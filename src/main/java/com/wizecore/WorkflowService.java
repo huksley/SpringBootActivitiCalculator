@@ -1,10 +1,11 @@
 package com.wizecore;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.metamodel.StaticMetamodel;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
  * Provides internal API for workflow (BPM)
  * 
  * @author Ruslan
- *
  */
 @Service
 @Component
@@ -29,33 +29,65 @@ public class WorkflowService {
     @Autowired
     private TaskService taskService;
 
+    /**
+     * Start process.
+     */
 	@Transactional
     public void startProcess() {
         runtimeService.startProcessInstanceByKey("calc");
     }
 	
-	public String processName(String id) {
+	/**
+	 * Return current process name.
+	 * @param id Process instance Id
+	 */
+	public String processInstanceName(String id) {
 		return runtimeService.createProcessInstanceQuery().processInstanceId(id).singleResult().getName();
 	}
 	
-	public String processDefinitionName(String id) {
+	/**
+	 * Return current process definition name.
+	 * 
+	 */
+	public String processInstanceDefinitionName(String id) {
 		return runtimeService.createProcessInstanceQuery().processInstanceId(id).singleResult().getProcessDefinitionKey();
 	}
 	
-	public void completeTask(String id) {
-		taskService.complete(id);
+	/**
+	 * Complete task.
+	 * @param taskId Task Id
+	 */
+	public void completeTask(String taskId) {
+		taskService.complete(taskId);
 	}
 
+	/**
+	 * Return list of tasks assigned or available for assignment for specified user.
+	 * @param assignee User name
+	 * @return List of tasks, can be empty.
+	 */
 	@Transactional
-    public List<Task> getTasks(String assignee) {
+	@NotNull
+    public List<TaskRepresentation> getTasks(String assignee) {
         List<Task> l = taskService.createTaskQuery().taskAssignee(assignee).list();
         if (l.size() == 0) {
         	l = taskService.createTaskQuery().taskCandidateUser(assignee).list();
         }
-        return l;
+        
+		List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
+		for (Task task : l) {
+			dtos.add(new TaskRepresentation(this, task));
+		}
+		return dtos;
     }
 
-	public Map<String, Object> taskVars(String taskId) {
+	/**
+	 * Returns task variables for specified task.
+	 * 
+	 * @param taskId Task id
+	 * @return
+	 */
+	public Map<String, Object> getTaskVariables(String taskId) {
 		Map<String, Object> vars = taskService.createTaskQuery().taskId(taskId).includeProcessVariables().singleResult().getProcessVariables();
 		return vars;
 	}

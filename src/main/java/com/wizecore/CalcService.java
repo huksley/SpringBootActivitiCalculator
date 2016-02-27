@@ -1,5 +1,7 @@
 package com.wizecore;
 
+import java.util.logging.Logger;
+
 import javax.persistence.EntityManager;
 
 import org.activiti.engine.RuntimeService;
@@ -10,11 +12,13 @@ import org.springframework.stereotype.Component;
 
 /**
  * Calculation service.
+ * Implements service task part of web process.
  * 
  * @author Ruslan
  */
 @Component
 public class CalcService {
+	Logger log = Logger.getLogger(getClass().getName());
 	
 	@Autowired
     private RuntimeService bpm;
@@ -23,9 +27,10 @@ public class CalcService {
 	private EntityManager entityManager;
 
     public void calculate(Execution exec) {
-        System.out.println("Calculating (" + bpm + ", " + exec + ") ...");
+    	log.info("Calculating (" + bpm + ", " + exec + ") ...");
         try {
 	        CalcObject o = (CalcObject) bpm.getVariable(exec.getId(), "calc");
+	        log.info("Expression " + o.getA() + " " + o.getOperation() + " " + o.getB() + " = ?");
 	        if (o.getOperation().equals("+")) {
 	        	o.setC(o.getA() + o.getB());
 	        } else
@@ -40,7 +45,7 @@ public class CalcService {
 	        } else {
 	        	throw new RuntimeException("Unknown op: " + o.getOperation());
 	        }
-	        // entityManager.persist(o);
+	        log.info("Conclusion " + o.getA() + " " + o.getOperation() + " " + o.getB() + " = " + o.getC());
 	        bpm.setVariable(exec.getId(), "calc", o);
         } catch (Exception e) {
         	bpm.setVariable(exec.getId(), "error", e.getMessage());
@@ -49,7 +54,7 @@ public class CalcService {
     }
 
     public void starting(Execution exec) {
-    	System.out.println("Starting (" + bpm + ", " + exec + ") ...");
+    	log.info("Starting (" + bpm + ", " + exec + ") ...");
     	CalcObject o = new CalcObject();
     	o.setA(1);
     	o.setB(2);

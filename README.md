@@ -25,3 +25,13 @@ Forms are completelty hand-written, without any dependency on technology used.
 
 Current task complete model is POST with process.<var> = value params.
 
+## Testing environment
+
+  * Parameterized tests for business process
+  * UI tests and BPM tests
+  * Allure test framework integrated (run mvn clean test; mvn site to produce report in target/site/allure-maven-plugin)
+
+WARNING!!!
+To run local Allure report you will need to run chrome with  --allow-file-access-from-files argument.
+
+

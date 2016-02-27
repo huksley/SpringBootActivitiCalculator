@@ -5,11 +5,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Declares routes
+ * Declares routes and URL mappings for MVC in Spring.
+ * 
  * @author Ruslan
  */
 @Configuration
-public class WebRouteConfig extends WebMvcConfigurerAdapter {
+public class RouteConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

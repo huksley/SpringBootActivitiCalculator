@@ -10,11 +10,11 @@ import javax.persistence.Id;
  * Entity which calculator works on.
  * 
  * @author Ruslan
- *
  */
 @Entity
 public class CalcObject implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue

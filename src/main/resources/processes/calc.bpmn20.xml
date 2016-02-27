@@ -7,19 +7,23 @@
       </extensionElements>
     </startEvent>
     <sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="UserTask_1"></sequenceFlow>
-    <userTask id="UserTask_1" name="Prompt" activiti:candidateUsers="user" activiti:candidateGroups="user" activiti:formKey="prompt"></userTask>
+    <userTask id="UserTask_1" name="Prompt" activiti:candidateUsers="user" activiti:candidateGroups="user" activiti:formKey="prompt">
+      <extensionElements>
+        <activiti:formProperty id="calc"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="SequenceFlow_2" sourceRef="UserTask_1" targetRef="ServiceTask_1"></sequenceFlow>
     <serviceTask id="ServiceTask_1" name="Calc" activiti:expression="${calcService.calculate(execution)}"></serviceTask>
     <sequenceFlow id="SequenceFlow_3" sourceRef="ServiceTask_1" targetRef="UserTask_2"></sequenceFlow>
     <userTask id="UserTask_2" name="Show" activiti:candidateUsers="user" activiti:candidateGroups="user" activiti:formKey="show"></userTask>
     <sequenceFlow id="SequenceFlow_4" sourceRef="UserTask_2" targetRef="EndEvent_1"></sequenceFlow>
-    <endEvent id="EndEvent_1"></endEvent>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="ServiceTask_1">
       <errorEventDefinition errorRef="CalcErr"></errorEventDefinition>
     </boundaryEvent>
-    <userTask id="usertask1" name="Errors" activiti:candidateUsers="user" activiti:candidateGroups="user" activiti:formKey="errors"></userTask>
     <sequenceFlow id="flow1" sourceRef="boundaryerror1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask1" name="Errors" activiti:candidateUsers="user" activiti:candidateGroups="user" activiti:formKey="errors"></userTask>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="EndEvent_1"></sequenceFlow>
+    <endEvent id="EndEvent_1"></endEvent>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_calc">
     <bpmndi:BPMNPlane bpmnElement="calc" id="BPMNPlane_calc">
@@ -38,11 +42,11 @@
       <bpmndi:BPMNShape bpmnElement="UserTask_2" id="BPMNShape_UserTask_2">
         <omgdc:Bounds height="80.0" width="100.0" x="408.0" y="28.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="EndEvent_1" id="BPMNShape_EndEvent_1">
-        <omgdc:Bounds height="36.0" width="36.0" x="570.0" y="95.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="408.0" y="130.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="335.0" y="168.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1" id="BPMNShape_EndEvent_1">
+        <omgdc:Bounds height="36.0" width="36.0" x="588.0" y="76.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1" id="BPMNEdge_SequenceFlow_1">
         <omgdi:waypoint x="61.0" y="70.0"></omgdi:waypoint>
@@ -58,15 +62,21 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="SequenceFlow_4" id="BPMNEdge_SequenceFlow_4">
         <omgdi:waypoint x="508.0" y="68.0"></omgdi:waypoint>
-        <omgdi:waypoint x="588.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="548.0" y="68.0"></omgdi:waypoint>
+        <omgdi:waypoint x="548.0" y="94.0"></omgdi:waypoint>
+        <omgdi:waypoint x="588.0" y="94.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="345.0" y="113.0"></omgdi:waypoint>
-        <omgdi:waypoint x="460.0" y="130.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="128.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="387.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="387.0" y="168.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="513.0" y="157.0"></omgdi:waypoint>
-        <omgdi:waypoint x="588.0" y="131.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="476.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="476.0" y="94.0"></omgdi:waypoint>
+        <omgdi:waypoint x="588.0" y="94.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -22,8 +22,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
         <jtwig.version>3.1.1</jtwig.version>
+    	<allure.version>1.4.22</allure.version>
 	</properties>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.activiti</groupId>
@@ -90,6 +91,15 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+	    <dependency>
+	        <groupId>ru.yandex.qatools.allure</groupId>
+	        <artifactId>allure-junit-adaptor</artifactId>
+	        <version>${allure.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.aspectj</groupId>
+	        <artifactId>aspectjrt</artifactId>
+	    </dependency>
 	</dependencies>
 
 	<build>
@@ -98,6 +108,58 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-surefire-plugin</artifactId>
+	            <configuration>
+	                <testFailureIgnore>false</testFailureIgnore>
+	                <systemPropertyVariables>
+	                    <webdriver.chrome.driver>src/test/resources/chromedriver.exe</webdriver.chrome.driver>
+	                </systemPropertyVariables>
+	                <argLine>
+	                    -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+	                </argLine>
+	                <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>ru.yandex.qatools.allure.junit.AllureRunListener</value>
+                        </property>
+                    </properties>
+	                <systemProperties>
+	                    <property>
+	                        <name>aj.weaving.verbose</name>
+	                        <value>false</value>
+	                    </property>
+	                </systemProperties>
+	            </configuration>
+	            <dependencies>
+	                <dependency>
+	                    <groupId>org.aspectj</groupId>
+	                    <artifactId>aspectjweaver</artifactId>
+	                    <version>${aspectj.version}</version>
+	                </dependency>
+	            </dependencies>
+	        </plugin>
 		</plugins>
 	</build>
+	
+	<reporting>
+	    <excludeDefaults>true</excludeDefaults>
+	    <outputDirectory>${project.build.directory}/site</outputDirectory>
+	    <plugins>
+	        <plugin>
+	            <groupId>ru.yandex.qatools.allure</groupId>
+	            <artifactId>allure-maven-plugin</artifactId>
+	            <version>2.5</version>
+	            <configuration>
+	            	<systemProperties>
+						<property>
+						    <key>allure.issues.tracker.pattern</key>
+						    <value>https://github.com/huksley/SpringBootActivitiCalculator/issues/%s</value>
+						</property>
+					</systemProperties>
+	            </configuration>
+	        </plugin>
+	</plugins>
+	</reporting>
 </project>

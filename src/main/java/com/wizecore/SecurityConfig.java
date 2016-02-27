@@ -21,7 +21,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 // @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @Order(1)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public final static String TEST_USERNAME = "user";
 	public final static String TEST_PASSWORD = "123";
 	public final static String TEST_ROLE = "user";
