@@ -61,7 +61,7 @@ public class WorkflowSetupTest extends Assert {
 	
 	@Test
 	@Stories("Get BPM process image")
-	@Attachment(value = "BPM process")
+	//@Attachment(value = "BPM process")
 	public void testProcessImage() throws IOException {
 		byte[] im = getProcessImage();
 		assertNotNull("BPM process image byte array is not null", im);
