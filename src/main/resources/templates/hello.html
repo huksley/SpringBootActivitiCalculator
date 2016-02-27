@@ -16,7 +16,7 @@
 			        
 			        <h4>Current available tasks</h4>
 			        <li th:each="task : ${@taskBean.tasks}">
-			        	<a th:href="${@workflowService.processDefinitionName(task.processInstanceId) + '/' + task.formKey + '?taskId=' + task.id}">
+			        	<a th:href="${@workflowService.processInstanceDefinitionName(task.processInstanceId) + '/' + task.formKey + '?taskId=' + task.id}">
 				        	<span th:text="${task.name}"/>
 			        	</a>
 			        </li>
