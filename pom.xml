@@ -39,25 +39,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<!-- 
-		 <dependency>
-            <groupId>com.lyncode</groupId>
-            <artifactId>jtwig-spring</artifactId>
-            <version>${jtwig.version}</version>
-            <exclusions>
-		        <exclusion>
-		            <groupId>javax.servlet</groupId>
-		            <artifactId>servlet-api</artifactId>
-		        </exclusion>
-		    </exclusions>
-        </dependency>
-         -->
-		<!--  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<!--  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -100,10 +85,41 @@
 	        <groupId>org.aspectj</groupId>
 	        <artifactId>aspectjrt</artifactId>
 	    </dependency>
+	     <dependency>
+            <groupId>com.github.detro.ghostdriver</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+		    <groupId>xml-apis</groupId>
+		    <artifactId>xml-apis</artifactId>
+		    <version>1.4.01</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+        		<artifactId>maven-antrun-plugin</artifactId>
+        		<executions>
+          			<execution>
+            			<phase>test</phase>
+            			<configuration>
+            				<target>
+            					<copy file="${basedir}/src/test/resources/environment.properties"
+              						toFile="${project.build.directory}/allure-results/environment.properties">
+              						<filterchain>
+              							<expandproperties/>
+              						</filterchain>
+              					</copy>
+            				</target>
+            			</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+      		</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -113,9 +129,6 @@
 	            <artifactId>maven-surefire-plugin</artifactId>
 	            <configuration>
 	                <testFailureIgnore>false</testFailureIgnore>
-	                <systemPropertyVariables>
-	                    <webdriver.chrome.driver>src/test/resources/chromedriver.exe</webdriver.chrome.driver>
-	                </systemPropertyVariables>
 	                <argLine>
 	                    -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
 	                </argLine>
@@ -151,15 +164,17 @@
 	            <groupId>ru.yandex.qatools.allure</groupId>
 	            <artifactId>allure-maven-plugin</artifactId>
 	            <version>2.5</version>
-	            <configuration>
-	            	<systemProperties>
-						<property>
-						    <key>allure.issues.tracker.pattern</key>
-						    <value>https://github.com/huksley/SpringBootActivitiCalculator/issues/%s</value>
-						</property>
-					</systemProperties>
-	            </configuration>
+				<configuration>
+				   <properties>
+				       <allure.issues.tracker.pattern>https://github.com/huksley/SpringBootActivitiCalculator/issues/%s</allure.issues.tracker.pattern>
+				   </properties>
+				</configuration>
 	        </plugin>
-	</plugins>
+	        <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.17</version>
+			</plugin>	
+	      </plugins>
 	</reporting>
 </project>
